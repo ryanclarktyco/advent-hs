@@ -1,7 +1,6 @@
 import System.Environment
-import System.IO
-import Data.List
 
+main :: IO ()
 main = do
     args <- getArgs
     contents <- readFile (head args)
@@ -9,6 +8,7 @@ main = do
     print count
 
 countFloors :: String -> Int
+countFloors [] = 0
 countFloors "\n" = 0
 countFloors ['('] = 1
 countFloors [')'] = -1

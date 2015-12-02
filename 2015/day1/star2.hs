@@ -1,7 +1,6 @@
 import System.Environment
-import System.IO
-import Data.List
 
+main :: IO ()
 main = do
     args <- getArgs
     contents <- readFile (head args)
@@ -10,8 +9,10 @@ main = do
 
 basementPos :: String -> Int
 basementPos x = basementPos1 0 0 x where
-    basementPos1 accumulator position (x:xs)
+    basementPos1 :: Int -> Int -> String -> Int
+    basementPos1 _ _ [] = 0
+    basementPos1 accumulator position (y:ys)
         | accumulator < 0 = position
-        | x == '(' = basementPos1 (accumulator + 1) (position + 1) xs
-        | x == ')' = basementPos1 (accumulator - 1) (position + 1) xs
+        | y == '(' = basementPos1 (accumulator + 1) (position + 1) ys
+        | y == ')' = basementPos1 (accumulator - 1) (position + 1) ys
         | otherwise = 0
