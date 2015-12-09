@@ -7,16 +7,14 @@ main = do
     contents <- readFile arg
     let boxesString = lines contents
     let boxStrings = map (splitOn "x") boxesString
-    let areas = map boxArea boxStrings
+    let boxes = map (map read) boxStrings
+    let areas = map boxArea boxes
     let totalArea = sum areas
     print totalArea
 
-boxArea :: [String] -> Int
-boxArea [lengths,widths,heights] =
-    let length = read lengths
-        width = read widths
-        height = read heights
-    in 2 * (sideArea [width, height]) + 2 * (frontArea [length, height]) + 2 * (topArea [length, width]) + slackArea [length, width, height]
+boxArea :: [Int] -> Int
+boxArea [length,width,height] =
+    2 * (sideArea [width, height]) + 2 * (frontArea [length, height]) + 2 * (topArea [length, width]) + slackArea [length, width, height]
 boxArea _ = undefined
 
 sideArea :: [Int] -> Int
