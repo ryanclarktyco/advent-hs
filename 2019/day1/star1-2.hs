@@ -8,7 +8,7 @@ main = do
   print total
 
 calculateFuelForMasses :: [Int] -> Int
-calculateFuelForMasses l = foldr (+) 0 (map calculateFuelForMass l)
+calculateFuelForMasses = sum . map calculateFuelForMass
 
 calculateFuelForMass :: Int -> Int
 calculateFuelForMass x = if x >= 6
