@@ -6,7 +6,7 @@ main :: IO ()
 main = do
   args <- getArgs
   contents <- readFile (head args)
-  let finalPosition0 = runComputer (map (read::String->Int) (splitOn "," contents))
+  let finalPosition0 = runComputer (map read (splitOn "," contents))
   print finalPosition0
 
 data Operation = Operation Int Int Int Int

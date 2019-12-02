@@ -6,7 +6,7 @@ main :: IO ()
 main = do
   args <- getArgs
   contents <- readFile (head args)
-  let answer = tryInputs (map (read::String->Int) (splitOn "," contents)) $ outerProduct [0..99] [0..99]
+  let answer = tryInputs (map read (splitOn "," contents)) $ outerProduct [0..99] [0..99]
   print answer
 
 data Operation = Operation Int Int Int Int
