@@ -1,31 +1,22 @@
-import System.Environment
-import Data.List.Split
-import Debug.Trace
+module ElfTuringMachine.Shared (massageData, replaceValueAtPosition, runComputerAtPosition) where
 
-main :: IO ()
-main = do
-  args <- getArgs
-  contents <- readFile (head args)
-  let finalPosition0 = runComputer (map read (splitOn "," contents))
-  print finalPosition0
+import Data.List.Split
 
 data Operation = Operation Int Int Int Int
 
-compute :: Operation -> (Int, Int)
-compute (Operation 1 operand1 operand2 dest) = (operand1 + operand2, dest)
-compute (Operation 2 operand1 operand2 dest) = (operand1 * operand2, dest)
-
-hotFixInstructions :: [Int] -> [Int]
-hotFixInstructions l = replaceValueAtPosition (replaceValueAtPosition l 1 12) 2 2
-
-runComputer :: [Int] -> Int
-runComputer l = head (runComputerAtPosition (hotFixInstructions l) 0)
+massageData :: String -> [Int]
+massageData input = map read $ splitOn "," input
 
 runComputerAtPosition :: [Int] -> Int -> [Int]
 runComputerAtPosition l i 
   | i >= (length l) = l
   | l !! i == 99 = l
   | otherwise = runComputerAtPosition (applyMutation l (compute (getOperationForPosition l i))) (i + 4)
+
+compute :: Operation -> (Int, Int)
+compute (Operation 1 operand1 operand2 dest) = (operand1 + operand2, dest)
+compute (Operation 2 operand1 operand2 dest) = (operand1 * operand2, dest)
+
 
 applyMutation :: [Int] -> (Int, Int) -> [Int]
 applyMutation l (newValue, newPosition) = replaceValueAtPosition l newPosition newValue

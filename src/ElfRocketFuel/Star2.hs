@@ -1,11 +1,9 @@
-import System.Environment
+module ElfRocketFuel.Star2 (main) where
 
-main :: IO ()
-main = do
-  args <- getArgs
-  contents <- readFile (head args)
-  let total = calculateFuelForMasses (map (read::String->Int) (lines contents))
-  print total
+import ElfRocketFuel.Shared
+
+main :: String -> Int
+main input = calculateFuelForMasses (massageData input)
 
 calculateFuelForMasses :: [Int] -> Int
 calculateFuelForMasses = sum . map calculateFuelForMass
