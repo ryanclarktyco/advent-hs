@@ -10,6 +10,7 @@ import qualified ElfRocketFuel.Star1
 import qualified ElfRocketFuel.Star2
 import qualified ElfTuringMachine.Star1
 import qualified ElfTuringMachine.Star2
+import qualified CrossingWires.Star1
 
 main :: IO ()
 main = do 
@@ -46,5 +47,8 @@ solverMap = fromList ([
   (2, fromList([
   (1, ElfTuringMachine.Star1.main),
   (2, ElfTuringMachine.Star2.main)
-             ]))])
-                      )])
+             ])),
+  (3, fromList([
+  (1, CrossingWires.Star1.main)
+             ]))
+           ]))])
