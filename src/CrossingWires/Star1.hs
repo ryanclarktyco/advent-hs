@@ -3,8 +3,9 @@ module CrossingWires.Star1 (main) where
 import Data.Set
 import CrossingWires.Shared
 
-main :: String -> Int
-main input = findMinimumDistance $ Data.Set.filter (>0) $ calculateDistances $ intersectPaths $ generatePathSets moveSets
+main :: String -> IO Int
+main input = do
+  return $ findMinimumDistance $ Data.Set.filter (>0) $ calculateDistances $ intersectPaths $ generatePathSets moveSets
   where moveSets = massageData input
 
 findMinimumDistance :: Set Int -> Int

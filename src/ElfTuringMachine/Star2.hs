@@ -2,8 +2,10 @@ module ElfTuringMachine.Star2 ( main ) where
 
 import ElfTuringMachine.Shared
 
-main :: String -> Int
-main input = tryInputs (massageData input) $ outerProduct [0..99] [0..99]
+main :: String -> IO Int
+main input = do
+  let result = tryInputs (massageData input) $ outerProduct [0..99] [0..99]
+  return result
 
 tryInputs :: [Int] -> [(Int, Int)] -> Int
 tryInputs l (input:inputs)

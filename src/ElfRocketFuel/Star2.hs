@@ -2,8 +2,9 @@ module ElfRocketFuel.Star2 (main) where
 
 import ElfRocketFuel.Shared
 
-main :: String -> Int
-main input = calculateFuelForMasses (massageData input)
+main :: String -> IO Int
+main input = do
+  return $ calculateFuelForMasses (massageData input)
 
 calculateFuelForMasses :: [Int] -> Int
 calculateFuelForMasses = sum . map calculateFuelForMass

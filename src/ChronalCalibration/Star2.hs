@@ -4,8 +4,10 @@ import ChronalCalibration.Shared
 import Data.Set
 import Debug.Trace
 
-main :: String -> Int
-main input = findDuplicateFrequency (cycle (massageData input))
+main :: String -> IO Int
+main input = do
+  let result = findDuplicateFrequency (cycle (massageData input))
+  return result
 
 findDuplicateFrequency :: [Int] -> Int
 findDuplicateFrequency input = findDuplicateFrequencyHelper input 0 $ singleton 0

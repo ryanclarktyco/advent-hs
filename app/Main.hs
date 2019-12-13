@@ -11,25 +11,23 @@ import qualified ElfRocketFuel.Star2
 import qualified ElfTuringMachine.Star1
 import qualified ElfTuringMachine.Star2
 import qualified CrossingWires.Star1
+import qualified SunnyChance.Star1
 
 main :: IO ()
 main = do 
   (year:day:star:filename:args) <- getArgs
   contents <- readFile filename
-  let solver = getSolver (read year) (read day) (read star)
-  if isJust solver
-     then print $ fromJust solver contents
-  else do
-    print "No matching solver"
+  solution <- fromJust $ getSolver (read year, read day, read star) <*> pure contents
+  print solution
 
-getSolver :: Int -> Int -> Int -> Maybe (String -> Int)
-getSolver year day star = do
+getSolver :: (Int, Int, Int) -> Maybe (String -> IO Int)
+getSolver (year, day, star) = do
   yearSolver <- lookup year solverMap
   daySolver <- lookup day yearSolver
   starSolver <- lookup star daySolver
   return starSolver
 
-solverMap :: Map Int (Map Int (Map Int (String -> Int)))
+solverMap :: Map Int (Map Int (Map Int (String -> IO Int)))
 solverMap = fromList ([
   (2018,
   fromList([
@@ -50,5 +48,8 @@ solverMap = fromList ([
              ])),
   (3, fromList([
   (1, CrossingWires.Star1.main)
+             ])),
+  (5, fromList([
+  (1, SunnyChance.Star1.main)
              ]))
            ]))])
